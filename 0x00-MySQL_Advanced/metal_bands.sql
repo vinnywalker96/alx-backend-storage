@@ -1,13 +1,3 @@
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 DROP TABLE IF EXISTS `metal_bands`;
 CREATE TABLE `metal_bands` (
@@ -19,7 +9,7 @@ CREATE TABLE `metal_bands` (
   `split` year DEFAULT NULL,
   `style` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `metal_bands` (`band_name`, `fans`, `formed`, `id`, `origin`, `split`, `style`)
 VALUES ('Iron Maiden', '4195', '1975', '1', 'United Kingdom', NULL, 'New wave of british heavy,Heavy'),
@@ -60,7 +50,7 @@ VALUES ('Iron Maiden', '4195', '1975', '1', 'United Kingdom', NULL, 'New wave of
 ('Symphony X', '1343', '1994', '36', 'USA', '1994', 'Progressive,Symphonic power'),
 ('Eluveitie', '1328', '2002', '37', 'Switzerland', NULL, 'Celtic folk,Gothenburg'),
 ('Gojira', '1300', '1996', '38', 'France', '1996', 'Progressive death'),
-('Rammsein', '1251', '1994', '39', 'Germany', NULL, 'Industrial'),
+('Rammstein', '1251', '1994', '39', 'Germany', NULL, 'Industrial'),
 ('Sonata Arctica', '1242', '1996', '40', 'Finland', '1996', 'Power'),
 ('Mastodon', '1232', '1999', '41', 'USA', NULL, 'Progressive stoner,Progressive sludge'),
 ('Nile', '1189', '1993', '42', 'USA', '1993', 'Brutal death,Technical death'),
@@ -4895,12 +4885,3 @@ INSERT INTO `metal_bands` (`band_name`, `fans`, `formed`, `id`, `origin`, `split
 ('Axis Of Despair', '0', '2014', '4922', 'Sweden', '2014', 'Grindcore')
 ;
 
-
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;t
