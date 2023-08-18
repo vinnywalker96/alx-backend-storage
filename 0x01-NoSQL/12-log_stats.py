@@ -36,3 +36,4 @@ if __name__ == "__main__":
     print(f"    method PATCH: {method['PATCH']}")
     print(f"    method DELETE: {method['DELETE']}")
     print(f"{method['path']} status check") 
+    client.close()
