@@ -17,5 +17,5 @@ def update_topics(mongo_collection, name, topics):
             "topics": topics
             }
         }
-    updated = mongo_collection.update_one(filter, data)
+    updated = mongo_collection.update_many(filter, data)
     return updated
