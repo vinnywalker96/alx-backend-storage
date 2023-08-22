@@ -15,7 +15,7 @@ class Cache:
         self._redis.flushdb()
 
     def store(self, data: Union[
-          str, int, float, bytes]) -> str:
+          str, bytes, int, float]) -> str:
         """store val to redis server"""
         key: str = str(uuid.uuid4())
         self._redis.set(key, data)
