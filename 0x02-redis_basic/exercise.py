@@ -25,15 +25,17 @@ class Cache:
         value = self._redis.get(key)
         if value is None:
             return None
-        if str(value) is not str:
-            return self.get_str(value)
-        else:
-            return self.get_str(value)
+        if fn is not None:
+            return fn(value)
+        try:
+            result = get_str(value)
+            return result
+        except ValueError:
+            result = get_int(value)
+            return result
 
-    def get_str(self, value):
+    def get_str(self, value: bytes) -> str:
         return str(value)
 
-    def get_int(self, value):
+    def get_int(self, value: bytes) -> int:
         return int(value)
-
-
