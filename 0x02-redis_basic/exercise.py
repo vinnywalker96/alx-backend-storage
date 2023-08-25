@@ -21,6 +21,12 @@ class Cache:
         self._redis.set(key, data)
         return key
 
+    def get_str(self, value: bytes) -> str:
+        return str(value)
+
+    def get_int(self, value: bytes) -> int:
+        return int(value)
+
     def get(self, key, fn=None):
         value = self._redis.get(key)
         if value is None:
@@ -33,9 +39,3 @@ class Cache:
         except ValueError:
             result = get_int(value)
             return result
-
-    def get_str(self, value: bytes) -> str:
-        return str(value)
-
-    def get_int(self, value: bytes) -> int:
-        return int(value)
