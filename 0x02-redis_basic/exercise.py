@@ -21,21 +21,17 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get_str(self, value: bytes) -> str:
-        return str(value)
+    def get(self, key: str, fn: Callable = None):
+        data = self._redis.get(key)
+        if val in not None:
+            val = val.decode("utf-8")
+            if fn:
+                return fn(val)
+            return val
+        return None
 
-    def get_int(self, value: bytes) -> int:
-        return int(value)
+    def get_str(self, key: str):
+        return self.get(key, str)
 
-    def get(self, key, fn=None):
-        value = self._redis.get(key)
-        if value is None:
-            return None
-        if fn is not None:
-            return fn(value)
-        try:
-            result = get_str(value)
-            return result
-        except ValueError:
-            result = get_int(value)
-            return result
+    def get_int(self, key: int):
+        return self.get(key, int)
