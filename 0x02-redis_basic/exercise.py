@@ -22,7 +22,7 @@ class Cache:
         return key
 
     def get(self, key: str, fn: Callable = None):
-        data = self._redis.get(key)
+        val = self._redis.get(key)
         if val is not None:
             val = val.decode("utf-8")
             if fn:
