@@ -3,14 +3,11 @@
 CREATE FUNCTION SafeDiv(
 	a INT,
 	b INT)
-RETURNS FLOAT
+RETURNS INT
 DETERMINISTIC
 BEGIN 
-	DECLARE result FLOAT;
-	IF b = 0 THEN
-		SET result = 0;
-		RETURN result;
-	ELSE THEN
-		SET result = a / b;
-		RETURN result;
+	DECLARE result INT;
+	IF @b = 0 THEN
+		SET @result = 0;
+	RETURN @result
 END;
