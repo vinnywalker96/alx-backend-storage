@@ -10,7 +10,7 @@ BEGIN
 	IF b = 0 THEN
 		RETURN 0;
 	END IF;
-	SET result = (a * 1.0) / b;
+	SET result = a  / b;
 	RETURN result;
 
 END;$$
