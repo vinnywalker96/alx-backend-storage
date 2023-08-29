@@ -3,11 +3,15 @@
 CREATE FUNCTION SafeDiv(
 	a INT,
 	b INT)
-RETURNS INT
+RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN 
-	DECLARE result INT;
-	IF @b = 0 THEN
-		SET @result = 0;
-	RETURN @result
+	DECLARE result DECIMAL(10, 2);
+	IF b <> 0 THEN
+		SET result = a / b;
+	ELSE 
+		SET result = 0;
+	END IF;
+	RETURN result;
+
 END;
