@@ -3,7 +3,17 @@
 from typing import Union, Callable
 import redis
 import uuid
+from functools import wraps
 
+
+def call_counts(self, fn: Callable = None) -> Callable:
+
+    @wraps(fn)
+    def wrapper(self , *args, **kwargs):
+        key = f"method_calls:{fn.__qualname__}"
+        self._redis.incr(key)
+        return fn(*args, **kwargs)
+    return wrapper
 
 class Cache:
     def __init__(self) -> None:
@@ -20,34 +30,18 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable = None):
-        val = self._redis.get(key)
-        if val is None:
+    def get(self, key: str, fn: Callable = None) -> Union[bytes, str, int, float, None]:
+        value = self._redis.get(key)
+        if value is None:
             return None
         if fn is None:
             return None
-        return fn(val)
+        return fn(value)
 
     def get_str(self, key: str) -> str:
-        val = self._redis.get(key)
-        return val.decode("utf-8")
+        return self._redis.get(key).decode("utf-8)
+
 
     def get_int(self, key: str) -> int:
-        val = self._redis.get(key)
-        try:
-            val = int(val.decode("utf-8"))
-        except Exception as err:
-            vale = 0
-        return val
+        return int(self._redis.get(key, fn=int))
 
-cache = Cache()
-
-TEST_CASES = {
-    b"foo": None,
-    123: int,
-    "bar": lambda d: d.decode("utf-8")
-}
-
-for value, fn in TEST_CASES.items():
-    key = cache.store(value)
-    assert cache.get(key, fn=fn) == value
