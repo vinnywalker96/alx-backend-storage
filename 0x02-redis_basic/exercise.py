@@ -6,7 +6,6 @@ import uuid
 
 
 class Cache:
-
     def __init__(self) -> None:
         """Create instance of
         class Cache
@@ -21,17 +20,23 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable = None):
+    def get_str(self, data: bytes) -> str:
+        val = data.decode("utf-8")
+        return val
+
+    def get_int(self, data: bytes) -> int:
+        return int(data)
+
+    def get(self, key: str, fn: Callable = None) -> bytes:
         val = self._redis.get(key)
-        if val is not None:
-            val = val.decode("utf-8")
-            if fn:
-                return fn(val)
-            return val
-        return None
-
-    def get_str(self, key: str):
-        return self.get(key, str)
-
-    def get_int(self, key: int):
-        return self.get(key, int)
+        if val is None:
+            return None
+        if fn is None:
+            return None
+        return fn(val)
+        try:
+            res = get_int(val)
+            return res
+        except ValueError:
+            res = get_str(val)
+            return res
