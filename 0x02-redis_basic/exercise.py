@@ -34,9 +34,17 @@ class Cache:
         if fn is None:
             return None
         return fn(val)
+    
+    def get_str(self, key: str) -> str:
+        """Convert byte to str"""
+        val = self._redis.get(key)
+        return val.decode("utf-8")
+
+    def get_int(self, key: str) -> int:
+        """Convert byte str to int"""
+        val = self._redis.get(key)
         try:
-            res = get_int(val)
-            return res
-        except ValueError:
-            res = get_str(val)
-            return res
+            val = int(val.decode("utf-8"))
+        except Exception as err:
+            vale = 0
+        return val
