@@ -32,4 +32,5 @@ class Cache:
         return self.get(key, fn=lambda x: x.decode("utf-8"))
 
     def get_int(self, key: str) -> int:
-        return self.get(key, fn=int)
+        return int(self.get(key, fn=int))
+        
