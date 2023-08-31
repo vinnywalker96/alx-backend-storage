@@ -7,6 +7,7 @@ from functools import wraps
 
 
 def count_calls(method: Callable) -> Callable:
+    """Counts number of calls"""
     @wraps(method)
     def wrapper(self, *args, **kwds):
         key = method.__qualname__
@@ -16,6 +17,7 @@ def count_calls(method: Callable) -> Callable:
 
 
 def call_history(method: Callable) -> Callable:
+    """tracks history"""
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         input = str(args)
@@ -27,6 +29,7 @@ def call_history(method: Callable) -> Callable:
 
 
 def replay(fn: Callable):
+    """retrieves lists"""
     r = redis.Redis()
     func = fn.__qualname__
     value = r.get(func)
@@ -44,12 +47,6 @@ def replay(fn: Callable):
         if outpt:
             outpt = outpt.decode("utf-8")
         print(f'{func}(*{inpt}) -> {outpt}')
-    
-            
-
-
-
-    
 
 
 class Cache:
@@ -59,7 +56,7 @@ class Cache:
         """
         self._redis = redis.Redis(host='localhost', port=6379, db=0)
         self._redis.flushdb()
-    
+
     @count_calls
     @call_history
     def store(self, data: [
@@ -85,4 +82,4 @@ class Cache:
             value = int(value)
             return value
         except ValueError:
-            raise int(value)        
+            raise int(value) 
