@@ -24,7 +24,33 @@ def call_history(method: Callable) -> Callable:
         self._redis.rpush(f'{method.__qualname__}:outputs', output)
         return output
     return wrapper
-        
+
+
+def replay(fn: Callable):
+    r = redis.Redis()
+    func = fn.__qualname__
+    value = r.get(func)
+
+    try:
+        value = int(value.decode("utf-8"))
+    except Exception:
+        value = 0
+    print(f'{func} was called {value} times:')
+    inputs = r.lrange(f'{func}:inputs', 0, -1)
+    outputs = r.lrange(f'{func}:outputs', 0, -1)
+    for inpt, outpt in zip(inputs, outputs):
+        if inpt:
+            inpt = inpt.decode("utf-8")
+        if outpt:
+            outpt = outpt.decode("utf-8")
+        print(f'{func}(*{inpt}) -> {outpt}')
+    
+            
+
+
+
+    
+
 
 class Cache:
     def __init__(self) -> None:
@@ -59,7 +85,4 @@ class Cache:
             value = int(value)
             return value
         except ValueError:
-            raise int(value)
-
-
-        
+            raise int(value)        
