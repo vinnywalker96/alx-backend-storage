@@ -11,7 +11,7 @@ def count_calls(method: Callable) -> Callable:
     def wrapper(self, *args, **kwds):
         key = method.__qualname__
         self._redis.incr(key)
-        return method(*args, **kwds)
+        return method(self, *args, **kwds)
     return wrapper
 
 
@@ -22,7 +22,8 @@ class Cache:
         """
         self._redis = redis.Redis(host='localhost', port=6379, db=0)
         self._redis.flushdb()
-
+    
+    @count_calls
     def store(self, data: [
           str, bytes, int, float]) -> str:
         """store val to redis server"""
