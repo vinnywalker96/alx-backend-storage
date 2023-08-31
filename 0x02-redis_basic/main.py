@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-""" Main file """
+"""
+Main file
+"""
+import redis
 
 Cache = __import__('exercise').Cache
 
 cache = Cache()
+
 
 TEST_CASES = {
     b"foo": None,
