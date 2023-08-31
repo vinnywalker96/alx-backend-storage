@@ -50,6 +50,7 @@ def replay(fn: Callable):
 
 
 class Cache:
+    '''declares a Cache redis class'''
     def __init__(self) -> None:
         """Create instance of
         class Cache
@@ -67,19 +68,22 @@ class Cache:
         return key
 
     def get(self, key: str, fn: Optional[Callable] = None) -> None:
+        """ Get val from redis server"""
         val = self._redis.get(key)
         if fn:
             val = fn(val)
         return val
 
     def get_str(self, key: str) -> str:
+        """Converts to str"""
         value = self._redis.get(key)
         return value.decode("utf-8")
 
     def get_int(self, key: str) -> int:
+        """Converts to int"""
         value = self.get(key)
         try:
             value = int(value)
             return value
         except ValueError:
-            raise int(value) 
+            raise int(value)
